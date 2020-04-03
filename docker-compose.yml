@@ -1,7 +1,9 @@
 version: '3.4'
 
 services:
-    virtual-sound-mixer:
-          build: .
-          volumes:
-              - .:/usr/src/app
+  virtual-sound-mixer:
+    build: .
+    volumes:
+      - .:/usr/src/app
+    ports:
+      - 5000:80
