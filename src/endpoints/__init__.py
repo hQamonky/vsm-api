@@ -4,12 +4,13 @@ import os
 # Import the framework
 from flask import Flask
 from flask_restful import Resource, Api
-from src.controller import Controller
+from src.pbi import PythonBashInterface
 
 # Create an instance of Flask
 app = Flask(__name__)
 # Create the API
 api = Api(app)
+pbi = PythonBashInterface
 
 
 @app.route('/')
@@ -23,48 +24,62 @@ def index():
         return markdown.markdown(content)
 
 
+class Stats(Resource):
+    @staticmethod
+    def get():
+        return {'message': 'Success', 'data': pbi.get_stats()}, 200
+
+
+class Info(Resource):
+    @staticmethod
+    def get():
+        return {'message': 'Success', 'data': pbi.get_info()}, 200
+
+
 class Sinks(Resource):
     @staticmethod
     def get():
-        return {'message': 'Success', 'data': Controller.get_sinks()}, 200
+        return {'message': 'Success', 'data': pbi.get_sinks()}, 200
 
 
 class SinkInputs(Resource):
     @staticmethod
     def get():
-        return {'message': 'Success', 'data': Controller.get_sink_inputs()}, 200
+        return {'message': 'Success', 'data': pbi.get_sink_inputs()}, 200
 
 
 class Sources(Resource):
     @staticmethod
     def get():
-        return {'message': 'Success', 'data': Controller.get_sources()}, 200
+        return {'message': 'Success', 'data': pbi.get_sources()}, 200
 
 
 class SourceOutputs(Resource):
     @staticmethod
     def get():
-        return {'message': 'Success', 'data': Controller.get_source_outputs()}, 200
+        return {'message': 'Success', 'data': pbi.get_source_outputs()}, 200
 
 
 class Cards(Resource):
     @staticmethod
     def get():
-        return {'message': 'Success', 'data': Controller.get_cards()}, 200
+        return {'message': 'Success', 'data': pbi.get_cards()}, 200
 
 
 class Clients(Resource):
     @staticmethod
     def get():
-        return {'message': 'Success', 'data': Controller.get_clients()}, 200
+        return {'message': 'Success', 'data': pbi.get_clients()}, 200
 
 
 class Modules(Resource):
     @staticmethod
     def get():
-        return {'message': 'Success', 'data': Controller.get_modules()}, 200
+        return {'message': 'Success', 'data': pbi.get_modules()}, 200
 
 
+api.add_resource(Stats, '/stats')
+api.add_resource(Info, '/info')
 api.add_resource(Sinks, '/sinks')
 api.add_resource(SinkInputs, '/sink-inputs')
 api.add_resource(Sources, '/sources')

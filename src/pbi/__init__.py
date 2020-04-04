@@ -1,4 +1,26 @@
-class Controller:
+class PythonBashInterface:
+    @staticmethod
+    def get_stats():
+        import subprocess
+        process = subprocess.run(["pactl", "stat"], check=True, stdout=subprocess.PIPE,
+                                 universal_newlines=True)
+        data = []
+        stats = process.stdout.split('\n')
+        for stat in stats:
+            data.append(stat)
+        return data
+
+    @staticmethod
+    def get_info():
+        import subprocess
+        process = subprocess.run(["pactl", "info"], check=True, stdout=subprocess.PIPE,
+                                 universal_newlines=True)
+        data = []
+        info = process.stdout.split('\n')
+        for element in info:
+            data.append(element)
+        return data
+
     @staticmethod
     def get_sinks():
         import subprocess
