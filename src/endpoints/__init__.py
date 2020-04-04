@@ -32,6 +32,12 @@ class Sinks(Resource):
         return {'message': 'Success', 'data': con.get_sinks()}, 200
 
 
+class Sources(Resource):
+    @staticmethod
+    def get():
+        return {'message': 'Success', 'data': con.get_sources()}, 200
+
+
 class Cards(Resource):
     @staticmethod
     def get():
@@ -39,6 +45,7 @@ class Cards(Resource):
 
 
 api.add_resource(Sinks, '/sinks')
+api.add_resource(Sources, '/sources')
 api.add_resource(Cards, '/cards')
 
 

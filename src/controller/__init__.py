@@ -6,17 +6,33 @@ pbi = PythonBashInterface
 class Controller:
     @staticmethod
     def get_cards():
-        # cards = pbi.get_cards()
-        # sinks = pbi.get_sinks()
-        # sink_inputs = pbi.get_sink_inputs()
-        # sources = pbi.get_sources()
-        # source_outputs = pbi.get_source_outputs()
-        # clients = pbi.get_clients()
-        #
-        # data = []
-        # for card in cards:
+        cards = pbi.get_cards()
+        sinks = Controller.get_sinks()
+        sources = Controller.get_sources()
 
-        return "Work in progress!"
+        data = []
+        for card in cards:
+            card_sinks = []
+            for sink in sinks:
+                card_device = card['name'].split('.')[1]
+                sink_device = sink['name'].split('.')[1]
+                if card_device == sink_device:
+                    card_sinks.append(sink)
+
+            card_sources = []
+            for source in sources:
+                if source['name'].startswith(card['name']):
+                    card_sources.append(source)
+
+            data.append({
+                'id': card['id'],
+                'name': card['name'],
+                'driver': card['driver'],
+                'sinks': card_sinks,
+                'sources': card_sources
+            })
+
+        return data
 
     @staticmethod
     def get_sinks():
@@ -39,6 +55,31 @@ class Controller:
                 'driver': sink['driver'],
                 'state': sink['state'],
                 'applications': sink_clients
+            })
+
+        return data
+
+    @staticmethod
+    def get_sources():
+        sources = pbi.get_sources()
+        source_outputs = pbi.get_source_outputs()
+        clients = pbi.get_clients()
+
+        data = []
+        for source in sources:
+            source_clients = []
+            for source_output in source_outputs:
+                if source_output['source'] == source['id']:
+                    for client in clients:
+                        if client['id'] == source_output['client']:
+                            source_clients.append({'id': client['id'],
+                                                   'application': client['application']})
+            data.append({
+                'id': source['id'],
+                'name': source['name'],
+                'driver': source['driver'],
+                'state': source['state'],
+                'applications': source_clients
             })
 
         return data
