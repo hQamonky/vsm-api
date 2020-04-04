@@ -41,8 +41,6 @@ class Controller:
                 'applications': sink_clients
             })
 
-        # TODO : replace id in array by actual sink id. Then add null to missing ids. And do the same for clients.
-
         return data
 
     @staticmethod
