@@ -19,6 +19,25 @@ class Controller:
         return data
 
     @staticmethod
+    def get_sink_inputs():
+        import subprocess
+        process = subprocess.run(["pactl", "list", "short", "sink-inputs"], check=True, stdout=subprocess.PIPE,
+                                 universal_newlines=True)
+        data = []
+        sink_inputs = process.stdout.split('\n')
+        for sink_input in sink_inputs:
+            sink_input_array = sink_input.split('\t')
+            if len(sink_input_array) == 5:
+                data.append({
+                    'id': sink_input_array[0],
+                    'sink': sink_input_array[1],
+                    'client': sink_input_array[2],
+                    'driver': sink_input_array[3],
+                    'sample_specification': sink_input_array[4]
+                })
+        return data
+
+    @staticmethod
     def get_sources():
         import subprocess
         process = subprocess.run(["pactl", "list", "short", "sources"], check=True, stdout=subprocess.PIPE,
@@ -70,5 +89,40 @@ class Controller:
                     'id': card_array[0],
                     'name': card_array[1],
                     'driver': card_array[2]
+                })
+        return data
+
+    @staticmethod
+    def get_clients():
+        import subprocess
+        process = subprocess.run(["pactl", "list", "short", "clients"], check=True, stdout=subprocess.PIPE,
+                                 universal_newlines=True)
+        data = []
+        clients = process.stdout.split('\n')
+        for client in clients:
+            client_array = client.split('\t')
+            if len(client_array) == 3:
+                data.append({
+                    'id': client_array[0],
+                    'driver': client_array[1],
+                    'application': client_array[2]
+                })
+        return data
+
+    @staticmethod
+    def get_modules():
+        import subprocess
+        process = subprocess.run(["pactl", "list", "short", "modules"], check=True, stdout=subprocess.PIPE,
+                                 universal_newlines=True)
+        data = []
+        modules = process.stdout.split('\n')
+        for module in modules:
+            module_array = module.split('\t')
+            if len(module_array) == 4:
+                data.append({
+                    'id': module_array[0],
+                    'name': module_array[1],
+                    'argument': module_array[2],
+                    'unknown': module_array[3]
                 })
         return data

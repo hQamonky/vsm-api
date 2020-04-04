@@ -29,6 +29,12 @@ class Sinks(Resource):
         return {'message': 'Success', 'data': Controller.get_sinks()}, 200
 
 
+class SinkInputs(Resource):
+    @staticmethod
+    def get():
+        return {'message': 'Success', 'data': Controller.get_sink_inputs()}, 200
+
+
 class Sources(Resource):
     @staticmethod
     def get():
@@ -47,7 +53,22 @@ class Cards(Resource):
         return {'message': 'Success', 'data': Controller.get_cards()}, 200
 
 
+class Clients(Resource):
+    @staticmethod
+    def get():
+        return {'message': 'Success', 'data': Controller.get_clients()}, 200
+
+
+class Modules(Resource):
+    @staticmethod
+    def get():
+        return {'message': 'Success', 'data': Controller.get_modules()}, 200
+
+
 api.add_resource(Sinks, '/sinks')
+api.add_resource(SinkInputs, '/sink-inputs')
 api.add_resource(Sources, '/sources')
 api.add_resource(SourceOutputs, '/source-outputs')
 api.add_resource(Cards, '/cards')
+api.add_resource(Clients, '/clients')
+api.add_resource(Modules, '/modules')
