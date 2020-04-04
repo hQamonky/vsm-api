@@ -13,6 +13,7 @@ api = Api(app)
 con = Controller
 
 
+# Route shows the README file.
 @app.route('/')
 def index():
     # Open README file
@@ -24,40 +25,11 @@ def index():
         return markdown.markdown(content)
 
 
-class Stats(Resource):
-    @staticmethod
-    def get():
-        return {'message': 'Success', 'data': con.get_stats()}, 200
-
-
-class Info(Resource):
-    @staticmethod
-    def get():
-        return {'message': 'Success', 'data': con.get_info()}, 200
-
-
+# Basic endpoints
 class Sinks(Resource):
     @staticmethod
     def get():
         return {'message': 'Success', 'data': con.get_sinks()}, 200
-
-
-class SinkInputs(Resource):
-    @staticmethod
-    def get():
-        return {'message': 'Success', 'data': con.get_sink_inputs()}, 200
-
-
-class Sources(Resource):
-    @staticmethod
-    def get():
-        return {'message': 'Success', 'data': con.get_sources()}, 200
-
-
-class SourceOutputs(Resource):
-    @staticmethod
-    def get():
-        return {'message': 'Success', 'data': con.get_source_outputs()}, 200
 
 
 class Cards(Resource):
@@ -66,24 +38,71 @@ class Cards(Resource):
         return {'message': 'Success', 'data': con.get_cards()}, 200
 
 
-class Clients(Resource):
-    @staticmethod
-    def get():
-        return {'message': 'Success', 'data': con.get_clients()}, 200
-
-
-class Modules(Resource):
-    @staticmethod
-    def get():
-        return {'message': 'Success', 'data': con.get_modules()}, 200
-
-
-api.add_resource(Stats, '/stats')
-api.add_resource(Info, '/info')
 api.add_resource(Sinks, '/sinks')
-api.add_resource(SinkInputs, '/sink-inputs')
-api.add_resource(Sources, '/sources')
-api.add_resource(SourceOutputs, '/source-outputs')
 api.add_resource(Cards, '/cards')
-api.add_resource(Clients, '/clients')
-api.add_resource(Modules, '/modules')
+
+
+# Contains calls to direct bash commands.
+class NativeStats(Resource):
+    @staticmethod
+    def get():
+        return {'message': 'Success', 'data': con.native_get_stats()}, 200
+
+
+class NativeInfo(Resource):
+    @staticmethod
+    def get():
+        return {'message': 'Success', 'data': con.native_get_info()}, 200
+
+
+class NativeSinks(Resource):
+    @staticmethod
+    def get():
+        return {'message': 'Success', 'data': con.native_get_sinks()}, 200
+
+
+class NativeSinkInputs(Resource):
+    @staticmethod
+    def get():
+        return {'message': 'Success', 'data': con.native_get_sink_inputs()}, 200
+
+
+class NativeSources(Resource):
+    @staticmethod
+    def get():
+        return {'message': 'Success', 'data': con.native_get_sources()}, 200
+
+
+class NativeSourceOutputs(Resource):
+    @staticmethod
+    def get():
+        return {'message': 'Success', 'data': con.native_get_source_outputs()}, 200
+
+
+class NativeCards(Resource):
+    @staticmethod
+    def get():
+        return {'message': 'Success', 'data': con.native_get_cards()}, 200
+
+
+class NativeClients(Resource):
+    @staticmethod
+    def get():
+        return {'message': 'Success', 'data': con.native_get_clients()}, 200
+
+
+class NativeModules(Resource):
+    @staticmethod
+    def get():
+        return {'message': 'Success', 'data': con.native_get_modules()}, 200
+
+
+api.add_resource(NativeStats, '/native/stats')
+api.add_resource(NativeInfo, '/native/info')
+api.add_resource(NativeSinks, '/native/sinks')
+api.add_resource(NativeSinkInputs, '/native/sink-inputs')
+api.add_resource(NativeSources, '/native/sources')
+api.add_resource(NativeSourceOutputs, '/native/source-outputs')
+api.add_resource(NativeCards, '/native/cards')
+api.add_resource(NativeClients, '/native/clients')
+api.add_resource(NativeModules, '/native/modules')
