@@ -1,4 +1,5 @@
 class PythonBashInterface:
+    # pactl stat
     @staticmethod
     def get_stats():
         import subprocess
@@ -10,6 +11,7 @@ class PythonBashInterface:
             data.append(stat)
         return data
 
+    # pactl info
     @staticmethod
     def get_info():
         import subprocess
@@ -21,6 +23,7 @@ class PythonBashInterface:
             data.append(element)
         return data
 
+    # pactl list short sinks
     @staticmethod
     def get_sinks():
         import subprocess
@@ -40,6 +43,7 @@ class PythonBashInterface:
                 })
         return data
 
+    # pactl list short sink-inputs
     @staticmethod
     def get_sink_inputs():
         import subprocess
@@ -59,6 +63,7 @@ class PythonBashInterface:
                 })
         return data
 
+    # pactl list short sources
     @staticmethod
     def get_sources():
         import subprocess
@@ -78,6 +83,7 @@ class PythonBashInterface:
                 })
         return data
 
+    # pactl list short source-outputs
     @staticmethod
     def get_source_outputs():
         import subprocess
@@ -97,6 +103,7 @@ class PythonBashInterface:
                 })
         return data
 
+    # pactl list short cards
     @staticmethod
     def get_cards():
         import subprocess
@@ -114,6 +121,7 @@ class PythonBashInterface:
                 })
         return data
 
+    # pactl list short clients
     @staticmethod
     def get_clients():
         import subprocess
@@ -131,6 +139,7 @@ class PythonBashInterface:
                 })
         return data
 
+    # pactl list short modules
     @staticmethod
     def get_modules():
         import subprocess

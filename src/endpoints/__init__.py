@@ -4,13 +4,13 @@ import os
 # Import the framework
 from flask import Flask
 from flask_restful import Resource, Api
-from src.pbi import PythonBashInterface
+from src.controller import Controller
 
 # Create an instance of Flask
 app = Flask(__name__)
 # Create the API
 api = Api(app)
-pbi = PythonBashInterface
+con = Controller
 
 
 @app.route('/')
@@ -27,55 +27,55 @@ def index():
 class Stats(Resource):
     @staticmethod
     def get():
-        return {'message': 'Success', 'data': pbi.get_stats()}, 200
+        return {'message': 'Success', 'data': con.get_stats()}, 200
 
 
 class Info(Resource):
     @staticmethod
     def get():
-        return {'message': 'Success', 'data': pbi.get_info()}, 200
+        return {'message': 'Success', 'data': con.get_info()}, 200
 
 
 class Sinks(Resource):
     @staticmethod
     def get():
-        return {'message': 'Success', 'data': pbi.get_sinks()}, 200
+        return {'message': 'Success', 'data': con.get_sinks()}, 200
 
 
 class SinkInputs(Resource):
     @staticmethod
     def get():
-        return {'message': 'Success', 'data': pbi.get_sink_inputs()}, 200
+        return {'message': 'Success', 'data': con.get_sink_inputs()}, 200
 
 
 class Sources(Resource):
     @staticmethod
     def get():
-        return {'message': 'Success', 'data': pbi.get_sources()}, 200
+        return {'message': 'Success', 'data': con.get_sources()}, 200
 
 
 class SourceOutputs(Resource):
     @staticmethod
     def get():
-        return {'message': 'Success', 'data': pbi.get_source_outputs()}, 200
+        return {'message': 'Success', 'data': con.get_source_outputs()}, 200
 
 
 class Cards(Resource):
     @staticmethod
     def get():
-        return {'message': 'Success', 'data': pbi.get_cards()}, 200
+        return {'message': 'Success', 'data': con.get_cards()}, 200
 
 
 class Clients(Resource):
     @staticmethod
     def get():
-        return {'message': 'Success', 'data': pbi.get_clients()}, 200
+        return {'message': 'Success', 'data': con.get_clients()}, 200
 
 
 class Modules(Resource):
     @staticmethod
     def get():
-        return {'message': 'Success', 'data': pbi.get_modules()}, 200
+        return {'message': 'Success', 'data': con.get_modules()}, 200
 
 
 api.add_resource(Stats, '/stats')
