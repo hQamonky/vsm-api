@@ -2,9 +2,13 @@ import markdown
 import os
 
 # Import the framework
-from flask import Flask, jsonify, request
+from flask import Flask
+from flask_restful import Resource, Api
 
+# Create an instance of Flask
 app = Flask(__name__)
+# Create the API
+api = Api(app)
 
 
 @app.route('/')
@@ -18,7 +22,6 @@ def index():
         return markdown.markdown(content)
 
 
-@app.route("/sinks", methods=["GET"])
 def get_sinks():
     import subprocess
     process = subprocess.run(["pactl", "list", "short", "sinks"], check=True, stdout=subprocess.PIPE,
@@ -35,4 +38,13 @@ def get_sinks():
                 'sample_specification': sink_array[3],
                 'state': sink_array[4]
             })
-    return jsonify(data)
+    return data
+
+
+class Sinks(Resource):
+    @staticmethod
+    def get():
+        return {'message': 'Success', 'data': get_sinks()}, 200
+
+
+api.add_resource(Sinks, '/sinks')

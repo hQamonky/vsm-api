@@ -1,6 +1,6 @@
 # vsm-api
 ## Description
-QMK Virtual Sound Mixer API is a REST API that enables you to control a linux pulseaudio sound server.
+QMK Virtual Sound Mixer API is a REST API coded in Python that exposes commands to control a linux pulseaudio sound server.
 ## Usage
 All responses will have the form 
 ```json
