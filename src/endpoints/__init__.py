@@ -35,5 +35,19 @@ class Sources(Resource):
         return {'message': 'Success', 'data': Controller.get_sources()}, 200
 
 
+class SourceOutputs(Resource):
+    @staticmethod
+    def get():
+        return {'message': 'Success', 'data': Controller.get_source_outputs()}, 200
+
+
+class Cards(Resource):
+    @staticmethod
+    def get():
+        return {'message': 'Success', 'data': Controller.get_cards()}, 200
+
+
 api.add_resource(Sinks, '/sinks')
 api.add_resource(Sources, '/sources')
+api.add_resource(SourceOutputs, '/source-outputs')
+api.add_resource(Cards, '/cards')
