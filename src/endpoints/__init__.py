@@ -92,6 +92,12 @@ class NativeCards(Resource):
         return {'message': 'Success', 'data': con.native_get_cards()}, 200
 
 
+class NativeCardsFull(Resource):
+    @staticmethod
+    def get():
+        return {'message': 'Success', 'data': con.native_get_full_cards()}, 200
+
+
 class NativeClients(Resource):
     @staticmethod
     def get():
@@ -111,5 +117,6 @@ api.add_resource(NativeSinkInputs, '/native/sink-inputs')
 api.add_resource(NativeSources, '/native/sources')
 api.add_resource(NativeSourceOutputs, '/native/source-outputs')
 api.add_resource(NativeCards, '/native/cards')
+api.add_resource(NativeCardsFull, '/native/cards-full')
 api.add_resource(NativeClients, '/native/clients')
 api.add_resource(NativeModules, '/native/modules')

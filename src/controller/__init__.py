@@ -113,6 +113,10 @@ class Controller:
         return pbi.get_cards()
 
     @staticmethod
+    def native_get_full_cards():
+        return pbi.get_full_cards()
+
+    @staticmethod
     def native_get_clients():
         return pbi.get_clients()
 

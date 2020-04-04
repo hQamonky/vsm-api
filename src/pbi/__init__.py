@@ -121,6 +121,23 @@ class PythonBashInterface:
                 })
         return data
 
+    # pactl list cards
+    @staticmethod
+    def get_full_cards():
+        import subprocess
+        process = subprocess.run(["pactl", "list", "cards"], check=True, stdout=subprocess.PIPE,
+                                 universal_newlines=True)
+        data = []
+
+        cards = process.stdout.split('\n\n')
+        for card in cards:
+            lines = card.split('\n')
+            card_data = []
+            for line in lines:
+                card_data.append(line)
+            data.append(card_data)
+        return data
+
     # pactl list short clients
     @staticmethod
     def get_clients():
