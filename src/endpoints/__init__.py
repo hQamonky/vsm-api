@@ -116,6 +116,12 @@ class NativeClients(Resource):
         return {'message': 'Success', 'data': con.native_get_clients()}, 200
 
 
+class NativeClientsFull(Resource):
+    @staticmethod
+    def get():
+        return {'message': 'Success', 'data': con.native_get_full_clients()}, 200
+
+
 class NativeModules(Resource):
     @staticmethod
     def get():
@@ -126,6 +132,7 @@ api.add_resource(NativeStats, '/native/stats')
 api.add_resource(NativeInfo, '/native/info')
 
 api.add_resource(NativeClients, '/native/clients')
+api.add_resource(NativeClientsFull, '/native/clients-full')
 
 api.add_resource(NativeSinks, '/native/sinks')
 api.add_resource(NativeSinksFull, '/native/sinks-full')

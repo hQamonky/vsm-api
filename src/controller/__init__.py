@@ -129,5 +129,9 @@ class Controller:
         return pbi.get_clients()
 
     @staticmethod
+    def native_get_full_clients():
+        return pbi.get_full_clients()
+
+    @staticmethod
     def native_get_modules():
         return pbi.get_modules()

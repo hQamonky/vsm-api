@@ -166,14 +166,6 @@ class PythonBashInterface:
             data.append(card_data)
         return data
 
-    @staticmethod
-    def get_layer(line):
-        count = 0
-        while line.startswith('\t'):
-            count += 1
-            line = line[1:]
-        return count
-
     # pactl list short clients
     @staticmethod
     def get_clients():
@@ -190,6 +182,21 @@ class PythonBashInterface:
                     'driver': client_array[1],
                     'application': client_array[2]
                 })
+        return data
+
+    # pactl list clients
+    @staticmethod
+    def get_full_clients():
+        import subprocess
+        pbi = PythonBashInterface
+        process = subprocess.run(["pactl", "list", "clients"], check=True, stdout=subprocess.PIPE,
+                                 universal_newlines=True)
+        data = []
+        clients = process.stdout.split('\n\n')
+        for client in clients:
+            lines = client.split('\n')
+            client_data = pbi.lines_to_object(lines)
+            data.append(client_data)
         return data
 
     # pactl list short modules
@@ -269,3 +276,11 @@ class PythonBashInterface:
                 final_string = final_string + str(indexes[current_layer]) + ":'" + line + "'"\
                                + ("}" * (current_layer+1))
         return eval(final_string)
+
+    @staticmethod
+    def get_layer(line):
+        count = 0
+        while line.startswith('\t'):
+            count += 1
+            line = line[1:]
+        return count
