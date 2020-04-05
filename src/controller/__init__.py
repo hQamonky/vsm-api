@@ -97,6 +97,10 @@ class Controller:
         return pbi.get_sinks()
 
     @staticmethod
+    def native_get_full_sinks():
+        return pbi.get_full_sinks()
+
+    @staticmethod
     def native_get_sink_inputs():
         return pbi.get_sink_inputs()
 

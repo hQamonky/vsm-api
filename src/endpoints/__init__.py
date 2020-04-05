@@ -68,6 +68,12 @@ class NativeSinks(Resource):
         return {'message': 'Success', 'data': con.native_get_sinks()}, 200
 
 
+class NativeSinksFull(Resource):
+    @staticmethod
+    def get():
+        return {'message': 'Success', 'data': con.native_get_full_sinks()}, 200
+
+
 class NativeSinkInputs(Resource):
     @staticmethod
     def get():
@@ -113,6 +119,7 @@ class NativeModules(Resource):
 api.add_resource(NativeStats, '/native/stats')
 api.add_resource(NativeInfo, '/native/info')
 api.add_resource(NativeSinks, '/native/sinks')
+api.add_resource(NativeSinksFull, '/native/sinks-full')
 api.add_resource(NativeSinkInputs, '/native/sink-inputs')
 api.add_resource(NativeSources, '/native/sources')
 api.add_resource(NativeSourceOutputs, '/native/source-outputs')
