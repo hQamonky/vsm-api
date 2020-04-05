@@ -125,6 +125,7 @@ class PythonBashInterface:
     @staticmethod
     def get_full_cards():
         import subprocess
+        pbi = PythonBashInterface
         process = subprocess.run(["pactl", "list", "cards"], check=True, stdout=subprocess.PIPE,
                                  universal_newlines=True)
         data = []
@@ -133,10 +134,76 @@ class PythonBashInterface:
         for card in cards:
             lines = card.split('\n')
             card_data = []
-            for line in lines:
-                card_data.append(line)
+            # for line in lines:
+            #     card_data.append(line)
+            card_data = pbi.lines_to_json(lines)
             data.append(card_data)
         return data
+
+    @staticmethod
+    def lines_to_json(lines):
+        pbi = PythonBashInterface
+        lines = lines[:-1]
+        final_string = "{"
+        i = 0
+        current_layer = 0
+        indexes = [0]
+        handling_error = False
+        error_layer = 0
+        for line in lines:
+            line = line[current_layer:]
+            if i+1 < len(lines):
+                next_layer = pbi.get_layer(lines[i+1])
+                if next_layer-current_layer == 0:
+                    line = str(indexes[current_layer]) + ":'" + line + "',"
+                    indexes[current_layer] += 1
+                elif next_layer-current_layer == 1:
+                    line = "'" + line + "':{"
+                    if current_layer+1 >= len(indexes):
+                        indexes.append(0)
+                elif next_layer-current_layer == -1:
+                    line = str(indexes[current_layer]) + ":'" + line + "'},"
+                    indexes[current_layer] = 0
+                else:
+                    print('ERROR: next_layer-current_layer = ' + str(next_layer-current_layer) + " - line = " + line)
+                    if not handling_error:
+                        if pbi.get_layer(lines[i+2]) == 1:
+                            line = "'" + line
+                            if current_layer + 1 >= len(indexes):
+                                indexes.append(0)
+                        else:
+                            line = str(indexes[current_layer]) + ":'" + line
+                        error_layer = next_layer - current_layer
+                    else:
+                        error_layer = next_layer - abs(error_layer)
+                        if error_layer == 0:
+                            line = line + "',"
+                            indexes[current_layer] += 1
+                        elif error_layer == 1:
+                            line = line + "':{"
+                            if current_layer+1 >= len(indexes):
+                                indexes.append(0)
+                        elif error_layer == -1:
+                            line = line + "'},"
+                            indexes[current_layer] = 0
+
+                    handling_error = not handling_error
+
+                final_string = final_string + line
+                current_layer = next_layer
+                i += 1
+            else:
+                final_string = final_string + str(indexes[current_layer]) + ":'" + line + "'"\
+                               + ("}" * (current_layer+1))
+        return eval(final_string)
+
+    @staticmethod
+    def get_layer(line):
+        count = 0
+        while line.startswith('\t'):
+            count += 1
+            line = line[1:]
+        return count
 
     # pactl list short clients
     @staticmethod
