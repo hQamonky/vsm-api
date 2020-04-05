@@ -109,6 +109,10 @@ class Controller:
         return pbi.get_sources()
 
     @staticmethod
+    def native_get_full_sources():
+        return pbi.get_full_sources()
+
+    @staticmethod
     def native_get_source_outputs():
         return pbi.get_source_outputs()
 

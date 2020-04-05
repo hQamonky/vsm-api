@@ -98,6 +98,21 @@ class PythonBashInterface:
                 })
         return data
 
+    # pactl list sources
+    @staticmethod
+    def get_full_sources():
+        import subprocess
+        pbi = PythonBashInterface
+        process = subprocess.run(["pactl", "list", "sources"], check=True, stdout=subprocess.PIPE,
+                                 universal_newlines=True)
+        data = []
+        sources = process.stdout.split('\n\n')
+        for source in sources:
+            lines = source.split('\n')
+            source_data = pbi.lines_to_object(lines)
+            data.append(source_data)
+        return data
+
     # pactl list short source-outputs
     @staticmethod
     def get_source_outputs():
