@@ -1,8 +1,9 @@
+import subprocess
+
 class PythonBashInterface:
     # pactl stat
     @staticmethod
     def get_stats():
-        import subprocess
         process = subprocess.run(["pactl", "stat"], check=True, stdout=subprocess.PIPE,
                                  universal_newlines=True)
         data = []
@@ -14,7 +15,6 @@ class PythonBashInterface:
     # pactl info
     @staticmethod
     def get_info():
-        import subprocess
         process = subprocess.run(["pactl", "info"], check=True, stdout=subprocess.PIPE,
                                  universal_newlines=True)
         data = []
@@ -26,7 +26,6 @@ class PythonBashInterface:
     # pactl list short sinks
     @staticmethod
     def get_sinks():
-        import subprocess
         process = subprocess.run(["pactl", "list", "short", "sinks"], check=True, stdout=subprocess.PIPE,
                                  universal_newlines=True)
         data = []
@@ -46,7 +45,6 @@ class PythonBashInterface:
     # pactl list sinks
     @staticmethod
     def get_full_sinks():
-        import subprocess
         pbi = PythonBashInterface
         process = subprocess.run(["pactl", "list", "sinks"], check=True, stdout=subprocess.PIPE,
                                  universal_newlines=True)
@@ -61,7 +59,6 @@ class PythonBashInterface:
     # pactl list short sink-inputs
     @staticmethod
     def get_sink_inputs():
-        import subprocess
         process = subprocess.run(["pactl", "list", "short", "sink-inputs"], check=True, stdout=subprocess.PIPE,
                                  universal_newlines=True)
         data = []
@@ -81,7 +78,6 @@ class PythonBashInterface:
     # pactl list short sources
     @staticmethod
     def get_sources():
-        import subprocess
         process = subprocess.run(["pactl", "list", "short", "sources"], check=True, stdout=subprocess.PIPE,
                                  universal_newlines=True)
         data = []
@@ -101,7 +97,6 @@ class PythonBashInterface:
     # pactl list sources
     @staticmethod
     def get_full_sources():
-        import subprocess
         pbi = PythonBashInterface
         process = subprocess.run(["pactl", "list", "sources"], check=True, stdout=subprocess.PIPE,
                                  universal_newlines=True)
@@ -116,7 +111,6 @@ class PythonBashInterface:
     # pactl list short source-outputs
     @staticmethod
     def get_source_outputs():
-        import subprocess
         process = subprocess.run(["pactl", "list", "short", "source-outputs"], check=True, stdout=subprocess.PIPE,
                                  universal_newlines=True)
         data = []
@@ -136,7 +130,6 @@ class PythonBashInterface:
     # pactl list short cards
     @staticmethod
     def get_cards():
-        import subprocess
         process = subprocess.run(["pactl", "list", "short", "cards"], check=True, stdout=subprocess.PIPE,
                                  universal_newlines=True)
         data = []
@@ -154,7 +147,6 @@ class PythonBashInterface:
     # pactl list cards
     @staticmethod
     def get_full_cards():
-        import subprocess
         pbi = PythonBashInterface
         process = subprocess.run(["pactl", "list", "cards"], check=True, stdout=subprocess.PIPE,
                                  universal_newlines=True)
@@ -169,7 +161,6 @@ class PythonBashInterface:
     # pactl list short clients
     @staticmethod
     def get_clients():
-        import subprocess
         process = subprocess.run(["pactl", "list", "short", "clients"], check=True, stdout=subprocess.PIPE,
                                  universal_newlines=True)
         data = []
@@ -187,7 +178,6 @@ class PythonBashInterface:
     # pactl list clients
     @staticmethod
     def get_full_clients():
-        import subprocess
         pbi = PythonBashInterface
         process = subprocess.run(["pactl", "list", "clients"], check=True, stdout=subprocess.PIPE,
                                  universal_newlines=True)
@@ -202,7 +192,6 @@ class PythonBashInterface:
     # pactl list short modules
     @staticmethod
     def get_modules():
-        import subprocess
         process = subprocess.run(["pactl", "list", "short", "modules"], check=True, stdout=subprocess.PIPE,
                                  universal_newlines=True)
         data = []

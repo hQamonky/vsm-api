@@ -36,16 +36,16 @@ class Controller:
 
     @staticmethod
     def get_sinks():
-        sinks = pbi.get_sinks()
+        native_clients = pbi.get_full_clients()
         sink_inputs = pbi.get_sink_inputs()
-        clients = pbi.get_clients()
+        native_sinks = pbi.get_full_sinks()
 
         data = []
-        for sink in sinks:
+        for sink in native_sinks:
             sink_clients = []
             for sink_input in sink_inputs:
                 if sink_input['sink'] == sink['id']:
-                    for client in clients:
+                    for client in native_clients:
                         if client['id'] == sink_input['client']:
                             sink_clients.append({'id': client['id'],
                                                  'application': client['application']})
@@ -56,6 +56,28 @@ class Controller:
                 'state': sink['state'],
                 'applications': sink_clients
             })
+
+
+        # sinks = pbi.get_sinks()
+        # sink_inputs = pbi.get_sink_inputs()
+        # clients = pbi.get_clients()
+
+        # data = []
+        # for sink in sinks:
+        #     sink_clients = []
+        #     for sink_input in sink_inputs:
+        #         if sink_input['sink'] == sink['id']:
+        #             for client in clients:
+        #                 if client['id'] == sink_input['client']:
+        #                     sink_clients.append({'id': client['id'],
+        #                                          'application': client['application']})
+        #     data.append({
+        #         'id': sink['id'],
+        #         'name': sink['name'],
+        #         'driver': sink['driver'],
+        #         'state': sink['state'],
+        #         'applications': sink_clients
+        #     })
 
         return data
 
