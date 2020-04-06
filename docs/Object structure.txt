@@ -1,0 +1,24 @@
+Client :
+	Int		id
+	String		application
+
+Sink :
+	Int		id
+	String		name
+	String		driver
+	String		state
+	List<Client>	clients
+
+
+Source :
+	Int		id
+	String		name
+	String		driver
+	String		state
+	List<String>	clients
+	
+Card :
+	Int		id
+	String		name
+	Liste<Sink>	sinks
+	List<Source>	sources
