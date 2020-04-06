@@ -8,13 +8,13 @@ QMK Virtual Sound Mixer API is a REST API coded in Python that exposes commands 
 
 ### Checkout project from GitHub
 
-Open PyCharm and go to : **VCS -> Get from Version Control...**  
+Open PyCharm and go to **VCS -> Get from Version Control...**  
 Then, in GitHub tab, connect with your username and password and all your repos will appear.  
 Select vsm-api, enter the desired directory path and click **Clone**.  
 
 ### Install Plugins
 
-Go to : **File -> Settings...**, and then **Plugins**   
+Go to **File -> Settings...**, and then **Plugins**   
 Search for the following plugins and install them :  
 - Markdown  
 - Git Flow Integration  
