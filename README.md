@@ -1,43 +1,31 @@
 # vsm-api
-## Description
+
+## Project Description
+
 QMK Virtual Sound Mixer API is a REST API coded in Python that exposes commands to control a linux pulseaudio sound server.
-## Usage
-All responses will have the form 
-```json
-{
-    "data": "Mixed type holding the content of the response",
-    "message": "Description of what happened"
-}
-```
 
-Subsequent response definitions will only detail the expected value of the `data field`.
+## Get going with PyCharm
 
-### List sinks
+### Checkout project from GitHub
 
-**Definition**
+Open PyCharm and go to : "VCS -> Get from Version Control..."  
+Then, in GitHub tab, connect with your username and password and all your repos will appear.  
+Select vsm-api, enter the desired directory path and click "Clone".  
 
-`GET /sinks`
+### Install Plugins
 
-**Response**
+Go to : "File -> Settings...", and then "Plugins"  
+Search for the following plugins and install them :  
+- Markdown  
+- Git Flow Integration  
 
-- `200 OK` on success
+### Configure Project Interpreter
 
-```json
-[
-    {
-        "id": "0",
-        "name": "line-out",
-        "driver": "alsa-card",
-        "sample-description": "2ch",
-        "state": "IDLE"
-    },
-    {
-        "id": "1",
-        "name": "roccat",
-        "driver": "alsa-card",
-        "sample-description": "2ch",
-        "state": "IDLE"
-    }
-]
-```
-
+Go to "File -> Settings..."  
+Then to "Project: *project_name* -> Project Interpreter"  
+Click on the drop-down list and click "Show All..."  
+A window will appear with an empty space. Click on the "+". Choose "Virtualenv Environment" and click OK. The environment will be added, click OK.  
+Then click on the "+" from the base settings window. From there, install :  
+- Markdown  
+- Flask  
+- Flask-RESTful  
