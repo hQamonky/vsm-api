@@ -29,3 +29,10 @@ Then click on the **+** from the base settings window. From there, install :
 - Markdown  
 - Flask  
 - Flask-RESTful  
+
+### Add Configuration
+
+Click on **Add Configuration...**  
+Click on **+** on the top left. Select **Python**.  
+If it doesn't detect it automatically, enter the path **run.py**.  
+Click **OK**.
