@@ -1,0 +1,37 @@
+Client :
+	Int		id
+	String		application
+
+Sink :
+Useful :
+    Int             Number
+    String          State
+    String          Name
+    String          Description
+    String          Channel Map
+    Boolean         Mute
+    List<Volume>    Volume
+    Volume          Base Volume
+    String          Monitor Source
+    List<String>    Latency
+    List<Port>      Ports
+    Port            Active Port
+Not sure :
+    Sample Specification
+    Owner Module
+    Flags
+    Properties
+    Formats
+
+Source :
+	Int		id
+	String		name
+	String		driver
+	String		state
+	List<String>	clients
+	
+Card :
+	Int		id
+	String		name
+	Liste<Sink>	sinks
+	List<Source>	sources
