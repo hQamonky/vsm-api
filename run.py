@@ -1,3 +1,1 @@
-from src.endpoints import app
-
-app.run(port=8080)
+/home/wherlicq/PycharmProjects/vsm-api/run.py
