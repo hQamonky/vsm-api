@@ -1,1 +1,0 @@
-/home/wherlicq/PycharmProjects/vsm-api/README.md
