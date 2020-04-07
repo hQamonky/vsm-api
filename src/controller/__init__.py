@@ -36,49 +36,29 @@ class Controller:
 
     @staticmethod
     def get_sinks():
+        con = Controller
         native_clients = pbi.get_full_clients()
         sink_inputs = pbi.get_sink_inputs()
         native_sinks = pbi.get_full_sinks()
 
         data = []
         for sink in native_sinks:
+            sink_number = con.get_key_names(sink)[0][-1]
+            sink = sink["Sink #" + sink_number]
             sink_clients = []
             for sink_input in sink_inputs:
-                if sink_input['sink'] == sink['id']:
+                if sink_input['sink'] == sink_number:
                     for client in native_clients:
-                        if client['id'] == sink_input['client']:
-                            sink_clients.append({'id': client['id'],
-                                                 'application': client['application']})
+                        client_id = con.get_key_names(client)[0][-1]
+                        if client_id == sink_input['client']:
+                            sink_clients.append(client)
             data.append({
-                'number': sink['id'],
-                'name': sink['name'],
-                'driver': sink['driver'],
-                'state': sink['state'],
+                'number': sink_number,
+                'name': sink['Name'],
+                'driver': sink['Driver'],
+                'state': sink['State'],
                 'applications': sink_clients
             })
-
-
-        # sinks = pbi.get_sinks()
-        # sink_inputs = pbi.get_sink_inputs()
-        # clients = pbi.get_clients()
-
-        # data = []
-        # for sink in sinks:
-        #     sink_clients = []
-        #     for sink_input in sink_inputs:
-        #         if sink_input['sink'] == sink['id']:
-        #             for client in clients:
-        #                 if client['id'] == sink_input['client']:
-        #                     sink_clients.append({'id': client['id'],
-        #                                          'application': client['application']})
-        #     data.append({
-        #         'id': sink['id'],
-        #         'name': sink['name'],
-        #         'driver': sink['driver'],
-        #         'state': sink['state'],
-        #         'applications': sink_clients
-        #     })
-
         return data
 
     @staticmethod
@@ -157,3 +137,10 @@ class Controller:
     @staticmethod
     def native_get_modules():
         return pbi.get_modules()
+
+    @staticmethod
+    def get_key_names(array):
+        result = []
+        for key in array:
+            result.append(key)
+        return result
