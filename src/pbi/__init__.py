@@ -294,3 +294,8 @@ class PythonBashInterface:
         if not parse_able:
             result = str(index) + ":'" + line
         return result
+
+    @staticmethod
+    def run(command):
+        process = subprocess.run(command, check=True, stdout=subprocess.PIPE, universal_newlines=True)
+        return {'stdout': process.stdout, 'return_code': process.returncode, 'stderr': process.stderr}

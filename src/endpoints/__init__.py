@@ -3,7 +3,7 @@ import os
 
 # Import the framework
 from flask import Flask
-from flask_restful import Resource, Api
+from flask_restful import Resource, Api, reqparse
 from src.controller import Controller
 
 # Create an instance of Flask
@@ -153,3 +153,35 @@ api.add_resource(NativeCards, '/native/cards')
 api.add_resource(NativeCardsFull, '/native/cards-full')
 
 api.add_resource(NativeModules, '/native/modules')
+
+
+class LoadModules(Resource):
+    @staticmethod
+    def post(name):
+        # Testing command :
+        # pactl load-module module-loopback latency_msec=1 source=alsa_input.pci-0000_00_1f.3.analog-stereo sink=alsa_output.pci-0000_00_1f.3.analog-stereo
+
+        parser = reqparse.RequestParser()
+
+        parser.add_argument('latency_msec', required=True)
+        parser.add_argument('source', required=True)
+        parser.add_argument('sink', required=True)
+
+        # Parse the arguments into an object
+        args = parser.parse_args()
+        module_index = con.load_module(name, args)
+
+        return {'message': 'Module loaded.', 'data': module_index}, 201
+
+
+class UnloadModules(Resource):
+    @staticmethod
+    def get(identifier):
+        # Testing command :
+        # pactl unload-module 'index'
+        result = con.unload_module(identifier)
+        return {'message': 'Module loaded.', 'data': result}, 200
+
+
+api.add_resource(LoadModules, '/load-module/<string:name>')
+api.add_resource(UnloadModules, '/unload-module/<string:identifier>')

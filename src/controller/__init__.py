@@ -5,6 +5,31 @@ pbi = PythonBashInterface
 
 class Controller:
     @staticmethod
+    def load_module(name, arguments):
+        command = [
+            "pactl",
+            "load-module",
+            name,
+            'latency_msec=' + arguments['latency_msec'],
+            'source=' + arguments['source'],
+            'sink=' + arguments['sink']
+        ]
+        result = pbi.run(command)
+        if result['return_code'] == 0:
+            return {'module_index': result['stdout'].replace('\n', '')}
+
+    @staticmethod
+    def unload_module(index):
+        command = [
+            "pactl",
+            "unload-module",
+            index
+        ]
+        result = pbi.run(command)
+        if result['return_code'] == 0:
+            return 'Success'
+
+    @staticmethod
     def get_cards():
         con = Controller
         full_cards = pbi.get_full_cards()
@@ -42,30 +67,6 @@ class Controller:
                 'sinks': card_sinks,
                 'sources': card_sources
             })
-        return data
-
-        data = []
-        for card in cards:
-            card_sinks = []
-            for sink in sinks:
-                card_device = card['name'].split('.')[1]
-                sink_device = sink['name'].split('.')[1]
-                if card_device == sink_device:
-                    card_sinks.append(sink)
-
-            card_sources = []
-            for source in sources:
-                if source['name'].startswith(card['name']):
-                    card_sources.append(source)
-
-            data.append({
-                'id': card['id'],
-                'name': card['name'],
-                'driver': card['driver'],
-                'sinks': card_sinks,
-                'sources': card_sources
-            })
-
         return data
 
     @staticmethod
