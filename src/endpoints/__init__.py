@@ -26,6 +26,12 @@ def index():
 
 
 # Basic endpoints
+class Clients(Resource):
+    @staticmethod
+    def get():
+        return {'message': 'Success', 'data': con.get_clients()}, 200
+
+
 class Sinks(Resource):
     @staticmethod
     def get():
@@ -44,6 +50,7 @@ class Cards(Resource):
         return {'message': 'Success', 'data': con.get_cards()}, 200
 
 
+api.add_resource(Clients, '/clients')
 api.add_resource(Sinks, '/sinks')
 api.add_resource(Sources, '/sources')
 api.add_resource(Cards, '/cards')
