@@ -6,9 +6,43 @@ pbi = PythonBashInterface
 class Controller:
     @staticmethod
     def get_cards():
-        cards = pbi.get_cards()
-        sinks = Controller.get_sinks()
-        sources = Controller.get_sources()
+        con = Controller
+        full_cards = pbi.get_full_cards()
+        sinks = con.get_sinks()
+        sources = con.get_sources()
+
+        data = []
+        for card in full_cards:
+            card_number = con.get_key_names(card)[0].replace('Card #', '')
+            card = card["Card #" + card_number]
+
+            card_sinks = []
+            for sink in sinks:
+                card_device = card['Name'].split('.')[1]
+                sink_device = sink['name'].split('.')[1]
+                if card_device == sink_device:
+                    card_sinks.append(sink)
+
+            card_sources = []
+            for source in sources:
+                card_device = card['Name'].split('.')[1]
+                source_device = source['name'].split('.')[1]
+                if card_device == source_device:
+                    card_sources.append(source)
+
+            data.append({
+                'number': card_number,
+                'name': card['Name'],
+                'driver': card['Driver'],
+                'owner_module': card['Owner Module'],
+                'properties': card['Properties'],
+                'profiles': card['Profiles'],
+                'active_profile': card['Active Profile'],
+                'ports': card['Ports'],
+                'sinks': card_sinks,
+                'sources': card_sources
+            })
+        return data
 
         data = []
         for card in cards:
