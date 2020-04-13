@@ -73,40 +73,40 @@ class Controller:
         return data
 
     @staticmethod
-    def parse_volume(volume):
+    def get_sources():
         con = Controller
-        channels = volume.replace('Volume: ', '').split(',   ')
-        data = ''
-        tmp_array = []
-        for channel in channels:
-            channel = channel.split(': ')
-            tmp_array.append(channel[0])
-            tmp_array.append(channel[1])
-        if len(tmp_array) == 2:
-            data = {
-                tmp_array[0]: con.parse_volume_type(tmp_array[1])
-            }
-        elif len(tmp_array) == 4:
-            data = {
-                tmp_array[0]: con.parse_volume_type(tmp_array[1]),
-                tmp_array[2]: con.parse_volume_type(tmp_array[3])
-            }
-        elif len(tmp_array) == 6:
-            data = {
-                tmp_array[0]: con.parse_volume_type(tmp_array[1]),
-                tmp_array[2]: con.parse_volume_type(tmp_array[3]),
-                tmp_array[4]: con.parse_volume_type(tmp_array[5])
-            }
-        return data
+        clients = con.get_clients()
+        source_outputs = pbi.get_source_outputs()
+        native_sources = pbi.get_full_sources()
 
-    @staticmethod
-    def parse_volume_type(volume):
-        volumes = volume.split(' / ')
-        return {
-            'value': volumes[0],
-            'percentage': volumes[1].replace('%', ''),
-            'db': volumes[2].replace(' dB', '')
-        }
+        data = []
+        for source in native_sources:
+            source_number = con.get_key_names(source)[0].replace('Source #', '')
+            source = source["Source #" + source_number]
+            source_clients = []
+            for source_output in source_outputs:
+                if source_output['source'] == source_number:
+                    for client in clients:
+                        client_id = client["number"]
+                        if client_id == source_output['client']:
+                            source_clients.append(client)
+
+            data.append({
+                'number': source_number,
+                'name': source['Name'],
+                'description': source['Description'],
+                'driver': source['Driver'],
+                'state': source['State'],
+                'channel_map': source['Channel Map'],
+                'mute': source['Mute'],
+                'volume': con.parse_volume(source[8]),
+                'balance': source[9].replace('        balance ', ''),
+                'base_volume': con.parse_volume_type(source['Base Volume']),
+                'monitor_of_sink': source['Monitor of Sink'],
+                'latency': source['Latency'],
+                'applications': source_clients
+            })
+        return data
 
     @staticmethod
     def get_clients():
@@ -122,31 +122,6 @@ class Controller:
                 'owner_module': client['Owner Module'],
                 'properties': client['Properties']
             })
-        return data
-
-    @staticmethod
-    def get_sources():
-        sources = pbi.get_sources()
-        source_outputs = pbi.get_source_outputs()
-        clients = pbi.get_clients()
-
-        data = []
-        for source in sources:
-            source_clients = []
-            for source_output in source_outputs:
-                if source_output['source'] == source['id']:
-                    for client in clients:
-                        if client['id'] == source_output['client']:
-                            source_clients.append({'id': client['id'],
-                                                   'application': client['application']})
-            data.append({
-                'id': source['id'],
-                'name': source['name'],
-                'driver': source['driver'],
-                'state': source['state'],
-                'applications': source_clients
-            })
-
         return data
 
     @staticmethod
@@ -207,3 +182,39 @@ class Controller:
         for key in array:
             result.append(key)
         return result
+
+    @staticmethod
+    def parse_volume(volume):
+        con = Controller
+        channels = volume.replace('Volume: ', '').split(',   ')
+        data = ''
+        tmp_array = []
+        for channel in channels:
+            channel = channel.split(': ')
+            tmp_array.append(channel[0])
+            tmp_array.append(channel[1])
+        if len(tmp_array) == 2:
+            data = {
+                tmp_array[0]: con.parse_volume_type(tmp_array[1])
+            }
+        elif len(tmp_array) == 4:
+            data = {
+                tmp_array[0]: con.parse_volume_type(tmp_array[1]),
+                tmp_array[2]: con.parse_volume_type(tmp_array[3])
+            }
+        elif len(tmp_array) == 6:
+            data = {
+                tmp_array[0]: con.parse_volume_type(tmp_array[1]),
+                tmp_array[2]: con.parse_volume_type(tmp_array[3]),
+                tmp_array[4]: con.parse_volume_type(tmp_array[5])
+            }
+        return data
+
+    @staticmethod
+    def parse_volume_type(volume):
+        volumes = volume.split(' / ')
+        return {
+            'value': volumes[0],
+            'percentage': volumes[1].replace('%', ''),
+            'db': volumes[2].replace(' dB', '')
+        }
