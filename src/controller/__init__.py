@@ -27,7 +27,161 @@ class Controller:
         ]
         result = pbi.run(command)
         if result['return_code'] == 0:
-            return 'Success'
+            return result['stdout']
+
+    @staticmethod
+    def set_card_profile(card, profile):
+        command = [
+            'pactl',
+            'set-card-profile',
+            card,
+            profile
+        ]
+        result = pbi.run(command)
+        if result['return_code'] == 0:
+            return result['stdout']
+
+    @staticmethod
+    def set_default_sink(sink):
+        command = [
+            'pactl',
+            'set-default-sink',
+            sink
+        ]
+        result = pbi.run(command)
+        if result['return_code'] == 0:
+            return result['stdout']
+
+    @staticmethod
+    def set_sink_port(sink, port):
+        command = [
+            'pactl',
+            'set-sink-port',
+            sink,
+            port
+        ]
+        result = pbi.run(command)
+        if result['return_code'] == 0:
+            return result['stdout']
+
+    @staticmethod
+    def set_sink_volume_percentage(sink, volume):
+        command = [
+            'pactl',
+            'set-sink-volume',
+            sink,
+            volume + '%'
+        ]
+        result = pbi.run(command)
+        if result['return_code'] == 0:
+            return result['stdout']
+
+    @staticmethod
+    def set_sink_input_volume_percentage(sink_input, volume):
+        command = [
+            'pactl',
+            'set-sink-input-volume',
+            sink_input,
+            volume + '%'
+        ]
+        result = pbi.run(command)
+        if result['return_code'] == 0:
+            return result['stdout']
+
+    @staticmethod
+    def set_sink_mute(sink, mute):
+        command = [
+            'pactl',
+            'set-sink-mute',
+            sink,
+            mute
+        ]
+        result = pbi.run(command)
+        if result['return_code'] == 0:
+            return result['stdout']
+
+    @staticmethod
+    def set_sink_input_mute(sink_input, mute):
+        command = [
+            'pactl',
+            'set-sink-input-mute',
+            sink_input,
+            mute
+        ]
+        result = pbi.run(command)
+        if result['return_code'] == 0:
+            return result['stdout']
+
+    @staticmethod
+    def set_default_source(source):
+        command = [
+            'pactl',
+            'set-default-source',
+            source
+        ]
+        result = pbi.run(command)
+        if result['return_code'] == 0:
+            return result['stdout']
+
+    @staticmethod
+    def set_source_port(source, port):
+        command = [
+            'pactl',
+            'set-source-port',
+            source,
+            port
+        ]
+        result = pbi.run(command)
+        if result['return_code'] == 0:
+            return result['stdout']
+
+    @staticmethod
+    def set_source_volume_percentage(source, volume):
+        command = [
+            'pactl',
+            'set-source-volume',
+            source,
+            volume + '%'
+        ]
+        result = pbi.run(command)
+        if result['return_code'] == 0:
+            return result['stdout']
+
+    @staticmethod
+    def set_source_output_volume_percentage(source_output, volume):
+        command = [
+            'pactl',
+            'set-source-output-volume',
+            source_output,
+            volume + '%'
+        ]
+        result = pbi.run(command)
+        if result['return_code'] == 0:
+            return result['stdout']
+
+    @staticmethod
+    def set_source_mute(source, mute):
+        command = [
+            'pactl',
+            'set-source-mute',
+            source,
+            mute
+        ]
+        result = pbi.run(command)
+        if result['return_code'] == 0:
+            return result['stdout']
+
+    @staticmethod
+    def set_source_output_mute(source_output, mute):
+        command = [
+            'pactl',
+            'set-source-output-mute',
+            source_output,
+            mute
+        ]
+        result = pbi.run(command)
+        if result['return_code'] == 0:
+            return result['stdout']
 
     @staticmethod
     def get_cards():

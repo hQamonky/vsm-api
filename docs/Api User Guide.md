@@ -10,34 +10,7 @@ All responses will have the form
 }
 ```
 
-Subsequent response definitions will only detail the expected value of the `data field`.
+### Endpoints
 
-### List sinks
 
-**Definition**
-
-`GET /sinks`
-
-**Response**
-
-- `200 OK` on success
-
-```json
-[  
-    {  
-        "id": "0",  
-        "name": "line-out",  
-        "driver": "alsa-card",  
-        "sample-description": "2ch",  
-        "state": "IDLE"  
-    },  
-    {  
-        "id": "1",  
-        "name": "roccat",  
-        "driver": "alsa-card",  
-        "sample-description": "2ch",  
-        "state": "IDLE"  
-    }  
-]
-```
 
