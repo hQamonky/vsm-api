@@ -188,28 +188,32 @@ class SetSourceOutputMute(Resource):
         return {'message': 'Success', 'data': con.set_source_output_mute(source_output, mute)}, 200
 
 
-api.add_resource(Clients, '/clients')
-api.add_resource(Sinks, '/sinks')
-api.add_resource(Sources, '/sources')
 api.add_resource(Cards, '/cards')
+api.add_resource(SetCardProfile, '/card/<string:card>/set-profile/<string:profile>')
 
 api.add_resource(LoadModules, '/load-module/<string:name>')
 api.add_resource(UnloadModules, '/unload-module/<string:identifier>')
 
-api.add_resource(SetCardProfile, '/card/<string:card>/set-profile/<string:profile>')
+api.add_resource(Sinks, '/sinks')
 api.add_resource(SetDefaultSink, '/sink/<string:sink>/set-default')
 api.add_resource(SetSinkPort, '/sink/<string:sink>/set-port/<string:port>')
 api.add_resource(SetSinkVolumePercentage, '/sink/<string:sink>/set-volume-percentage/<string:volume>')
-api.add_resource(SetSinkInputVolumePercentage, '/sink-input/<string:sink_input>/set-volume-percentage/<string:volume>')
 api.add_resource(SetSinkMute, '/sink/<string:sink>/set-mute/<string:mute>')
+
+api.add_resource(SetSinkInputVolumePercentage, '/sink-input/<string:sink_input>/set-volume-percentage/<string:volume>')
 api.add_resource(SetSinkInputMute, '/sink-input/<string:sink_input>/set-mute/<string:mute>')
+
+api.add_resource(Sources, '/sources')
 api.add_resource(SetDefaultSource, '/source/<string:source>/set-default')
 api.add_resource(SetSourcePort, '/source/<string:source>/set-port/<string:port>')
 api.add_resource(SetSourceVolumePercentage, '/source/<string:source>/set-volume-percentage/<string:volume>')
+api.add_resource(SetSourceMute, '/source/<string:source>/set-mute/<string:mute>')
+
 api.add_resource(SetSourceOutputVolumePercentage, '/source-output/<string:source_output>/set-volume-percentage'
                                                   '/<string:volume>')
-api.add_resource(SetSourceMute, '/source/<string:source>/set-mute/<string:mute>')
 api.add_resource(SetSourceOutputMute, '/source-output/<string:source_output>/set-mute/<string:mute>')
+
+api.add_resource(Clients, '/clients')
 
 
 # Contains calls to direct bash commands.
